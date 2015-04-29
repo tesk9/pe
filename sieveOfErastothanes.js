@@ -1,7 +1,10 @@
-var buildSieve = function(topNumber) {
-  var primes = [2], isPrime = true;
+var buildSieve = function(topNumber, primes) {
+  primes = primes || [3];
+  var num = primes[primes.length - 1] + 1;
   
-  for(var num = 3; num < topNumber; num++) {
+  var isPrime = true;
+  for(; num < topNumber; num++) {
+    console.log(num)
     isPrime = true;
     for(var i = 0; i < primes.length; i++) {  
       if(!(num % primes[i])) {
