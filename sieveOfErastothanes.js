@@ -16,4 +16,4 @@ var buildSieve = function(topNumber) {
   return primes;
 };
 
-console.log(buildSieve(100000));
+module.exports = buildSieve;
