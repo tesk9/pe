@@ -4,7 +4,6 @@ var buildSieve = function(topNumber, primes) {
   
   var isPrime = true;
   for(; num < topNumber; num++) {
-    console.log(num)
     isPrime = true;
     for(var i = 0; i < primes.length; i++) {  
       if(!(num % primes[i])) {

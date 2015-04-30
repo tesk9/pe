@@ -1,0 +1,23 @@
+{
+  "name": "projectEuler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "evenFib.js",
+  "dependencies": {
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tesk9/pe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tesk9/pe/issues"
+  },
+  "homepage": "https://github.com/tesk9/pe"
+}
