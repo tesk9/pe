@@ -1,5 +1,10 @@
 var largeSum = function(input) {
   // Find the first ten digits of the sum of the following one-hundred 50-digit numbers
+  var sum = 0;
+  for(var i = 0; i < input.length; i++) {
+    sum += Number(input[i]);
+  }
+  return sum;
 };
 
 
@@ -106,3 +111,5 @@ var digits = [
   "20849603980134001723930671666823555245252804609722",
   "53503534226472524250874054075591789781264330331690"
   ]
+
+console.log(largeSum(digits));
