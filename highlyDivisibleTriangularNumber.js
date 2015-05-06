@@ -2,6 +2,7 @@
 // 1, 3, 6, 10, 15, 21, 28, 36, 45, 55...
 
 var primeSieve = require('./sieveOfErastothanes.js');
+var _ = require('underscore');
 
 var TriangularNumbers = function() {
   var storage = {};
@@ -36,27 +37,74 @@ var triangleNumberWithOverNDivisors = function(n) {
   // return ith triangular number
 };
 
-var getPrimeFactors = (function() {
-  var factorDictionary = {};
-  primes = primeSieve(10);
+var getFactors = (function() {
+  var primeFactorDictionary = {};
+  var allFactors  = {};
+  var _primes = [2];
+  var primesObj = {};
 
-  return function(number) {
-    if(!factorDictionary[number]) {
-      console.log("not memoized");
-      primes = primeSieve(Math.ceil(number/2), primes);
-      factorDictionary[number] = [];
+  // Extend the array of prime numbers we're working with
+  var updatePrimes = function(topNum) {
+    var newPrimesInd = _primes.length - 1;
+    _primes = primeSieve(topNum, _primes);
+    for(var i = newPrimesInd; i < _primes.length; i++) {
+      primesObj[_primes[i]] = 1;
+    }
+  };
 
-      for(var i = 0; i < primes.length; i++) {
-        if(!(number % primes[i])) {
-          factorDictionary[number].push(primes[i]);
+  updatePrimes(100);
+
+  var getPrimes = function(number) {
+    if(!primeFactorDictionary[number]) {
+      updatePrimes(Math.ceil(number/2));
+      primeFactorDictionary[number] = [];
+
+      // Add prime factors to factorDictionary at the number
+      for(var i = 0; i < _primes.length; i++) {
+        if(!(number % _primes[i])) {
+          primeFactorDictionary[number].push(_primes[i]);
         }
       }
+
     }
-
-    return factorDictionary[number];
-
+    return primeFactorDictionary[number];
   }
 
+  // Using the prime factors, find the rest of the factors
+  var getAllFactors = function(number) {
+    if(!allFactors[number]) {
+      var primes = getPrimes(number);
+      var factors = {}, quotient;
+
+      // add prime factors to factors list
+      for(var i = 0; i < primes.length; i++) {
+        factors[primes[i]] = 1;
+      }
+
+      // use each prime to find remaining factors
+      for(var i = 0; i < primes.length; i++) {
+        quotient = number / primes[i];
+        if(!factors[quotient] && quotient !== 1) {
+          factors[quotient] = 1;
+          console.log(number, "is divisible by", primes[i], "which gives us", quotient);
+          Object.keys(getAllFactors(quotient)).forEach(function(fac) {
+            factors[fac] = 1;
+          });
+        }
+      }
+
+      // save factors in closure
+      allFactors[number] = factors;
+    }
+
+    return allFactors[number];
+  };
+
+  return function(number) {
+    return Object.keys(getAllFactors(number)).map(function(val) {
+      return parseInt(val, 10);
+    });
+  };
 })();
 
-triangleNumberWithOverNDivisors(5);
+// triangleNumberWithOverNDivisors(5);
