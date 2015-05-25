@@ -6,7 +6,6 @@ var specialPythagoreanTriplet = function() {
     for(var b = 1; b < 1000; b++) {
       c = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
       if(a + b + c === 1000) {
-        console.log('num found');
         return a * b * c;
       }
     }

@@ -28,7 +28,9 @@ var buildSieve = function(topNumber, primes) {
     }
   }
 
-  return Object.keys(rangeObj);
+  return Object.keys(rangeObj).map(function(str) {
+    return parseInt(str, 10);
+  })
 };
 
 module.exports = buildSieve;
