@@ -41,9 +41,9 @@ var numberToEnglish = function(number) {
     inEnglish.push(numberToWord[number[0]]);
     inEnglish.push(digitsToPlace[number.length]);
     if(number.length === 3) {
-      inEnglish.push("and");
+      if(number[1] !== "0" || number[2] !== "0") { inEnglish.push("and"); }
+      inEnglish.push(numberToEnglish(number.slice(1).join("")));
     }
-    inEnglish.push(numberToEnglish(number.slice(1).join("")));
   } else if(number.length == 2 && number[0] !== "1") { 
     inEnglish.push(numberToWord[number[0] + "0"]);
     inEnglish.push(numberToWord[number[1]]);
@@ -55,10 +55,10 @@ var numberToEnglish = function(number) {
   return inEnglish.join("");
 };
 
-console.log(numberToEnglish(100));
-console.log(numberToEnglish(110));
-console.log(numberToEnglish(111));
-console.log(numberToEnglish(342));
-console.log(numberToEnglish(115));
-console.log(numberToEnglish(1150));
-
+var letterCount = 0, num;
+for(var i = 1; i <= 1000; i++) {
+  num = numberToEnglish(i);
+  // console.log(num);
+  letterCount += num.length;
+}
+console.log(letterCount);
