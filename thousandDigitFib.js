@@ -1,51 +1,43 @@
 function fibsToDigit(numDigits) {
   var oldest = [1];
   var newest = [1];
-  var count = 0;
-  while(newest.toString(10).length < numDigits) {
-    oldest ^= newest;
-    newest ^= oldest;
-    oldest ^= newest;
-    newest += oldest;
+  var count = 2;
+  while(newest.length < numDigits) {
+    var saveOld = newest.slice();
+    newest = hugeNumberSummer(newest, oldest);
+    oldest = saveOld;
     count++;
-    console.log(newest)
   }
-  
+  console.log(count)
   return newest;
 }
 
 var hugeNumberSummer = function(num1Arr, num2Arr) {
   // Ones digit on the left, dollface :)
-  // Note that this function modifies num1Arr
+  var sumArr = [];
 
-  //TODO: less ugly solution to uneven-length arrays
-  while(num2Arr.length > num1Arr.length) {
-    num1Arr.push(0);
-  }
-  while(num2Arr.length < num1Arr.length) {
-    num2Arr.push(0);
-  }
-
-  num1Arr.forEach(function(digit, ind, arr) {
-    var sum = digit + num2Arr[ind];
+  for(var ind = 0; ind < Math.max(num1Arr.length, num2Arr.length); ind++) {
+    var sum = (num1Arr[ind] !== undefined ? num1Arr[ind] : 0) + (num2Arr[ind] !== undefined ? num2Arr[ind] : 0) + (sumArr[ind] !== undefined ? sumArr[ind] : 0);
     if(sum > 9) {
-      if(arr[ind+1]) {
-        arr[ind+1]++;
+      sumArr[ind] = +(sum.toString(10)[1]);
+      if(sumArr[ind+1] !== undefined) {
+        sumArr[ind+1] += 1;
       } else {
-        arr.push(1);
+        sumArr.push(1);
       }
-      arr[ind] = +(sum.toString(10)[1]);
     } else {
-      arr[ind] = sum;
+      sumArr[ind] = sum;
     }
-  });
+  }
 
-  // num1Arr now represents the sum
-  return num1Arr;
+  return sumArr;
 };
 
-// console.log(fibsToDigit(100));
-console.log(hugeNumberSummer([1,2,3],[1,2,4,5]), 321 + 5421);
-console.log(hugeNumberSummer([1,2,3,2],[1,2,4,5]), 2321 + 5421)
+// console.log(hugeNumberSummer([1,2,3],[1,2,4,5]), 321 + 5421);
+// console.log(hugeNumberSummer([1,2,3,2],[1,2,4,5]), 2321 + 5421)
+// console.log(hugeNumberSummer([8], [3, 1]), 8 + 13);
+// console.log(hugeNumberSummer([3,1], [8]), 8 + 13);
 
+
+console.log(fibsToDigit(1000).reverse().join("").length);
 
