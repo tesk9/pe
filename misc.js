@@ -8,7 +8,10 @@
 */
 
 var reverseSpiralMatrix = function(n) {
-  var matrix = buildNXNMatrix(n);
+  var matrix = [];
+  for(var i = 0; i < n; i++) {
+    matrix.push([]);
+  }
   var counter = 1;
   var maxRow = n, maxCol = n;
   var minRow = 0, minCol = 0;
@@ -40,17 +43,6 @@ var reverseSpiralMatrix = function(n) {
   console.log(matrix);
   return matrix;
 };
-
-var buildNXNMatrix = function(n) {
-  var matrix = [];
-  for(var i = 0; i < n; i++) {
-    matrix.push([]);
-    for(var j = 0; j < n; j++) {
-      matrix[i].push(0);
-    }
-  }
-  return matrix;
-}
 
 reverseSpiralMatrix(1);
 reverseSpiralMatrix(2);
