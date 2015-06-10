@@ -1,6 +1,6 @@
 /* On an nXn grid, how many routes from top left corner 
    to bottom right corner, only moving down & right? */
-
+var factorial = require('./factorial.js');
 var latticePaths = function(n) {
   n++;
   var counter = 0, board = Board(n);
@@ -56,15 +56,6 @@ console.log(latticePaths(2));
 
 var mathyLatticePaths = function(n) {
   // (2n)! / (n! X n!)
-  var factorial = function(top, bottom) {
-    var res = 1, bottom = bottom || 1;
-    while(top > bottom) {
-      res *= top;
-      top--;
-    }
-    return res;
-  };
-
   var numerator = factorial(2*n, n);
   var nFactorial = factorial(n);
   return numerator / nFactorial;
