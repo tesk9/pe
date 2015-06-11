@@ -5,16 +5,16 @@ var getFactors = require('./factorization.js');
 
 var sumFactors = function(number) {
   return getFactors(number).reduce(function(val1, val2) {
-    return val1 + val2;
+    return val2 === number ? val1 : val1 + val2;
   }, 1);
 };
 
-var isAmicable = function(number) {
-  var d = sumFactors(number);
-  if(d === number) {
-    return false;
-  }
-  return sumFactors(d) === number;
+var isAmicable = function(a) {
+  /* a and b are an amicable pair 
+    <=> d(a) = b and d(b) = a, a != b */
+  var da = sumFactors(a);
+  var db = sumFactors(da);
+  return db === a && a !== da;
 }
 
 var sumAmicableNumbers = function(topNum) {
@@ -29,5 +29,4 @@ var sumAmicableNumbers = function(topNum) {
   return result;
 };
 
-// console.log(sumAmicableNumbers(300));
-console.log(isAmicable(3));
+console.log(sumAmicableNumbers(10000));
