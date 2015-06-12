@@ -43,7 +43,9 @@ var getFactors = (function() {
 
       // add prime factors to factors list
       for(var i = 0; i < primes.length; i++) {
-        factors[primes[i]] = 1;
+        if(number !== primes[i]) {
+          factors[primes[i]] = 1;
+        }
       }
 
       // use each prime to find remaining factors
