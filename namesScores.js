@@ -30,8 +30,18 @@ var letterScores = {
 };
 
 fs.readFile('./names.txt', 'utf-8', function(err, data) {
-  var names = data.split("\",\"");
+  var names = data.split(",");
   names = names.sort();
   var totalScore = 0;
-  
+
+  names.forEach(function(name, index) {
+    var nameScore = 0;
+    name.split("").forEach(function(letter) {
+      if(letterScores[letter]) {
+        nameScore += letterScores[letter];
+      }
+    });
+    totalScore += (index+1) * nameScore;
+  });
+  console.log(totalScore);
 });
