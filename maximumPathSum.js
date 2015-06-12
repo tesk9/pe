@@ -1,3 +1,5 @@
+// Brute Force Version
+
 var triangle = [
 [75],
 [95, 64],
@@ -15,7 +17,22 @@ var triangle = [
 [63, 66, 04, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31],
 [04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23]
 ];
-,
-var pathSum = function() {
-  
+
+var pathSum = function(triangle) {
+  var pathSums = [];
+  var followPath = function(rowInd, columnInd, sum) {
+    sum = sum || 0;
+    if(rowInd < triangle.length) {
+      // The two options from any position (a,b) are (a+1, b) and (a+1, b+1)
+      sum += triangle[rowInd][columnInd];
+      followPath(rowInd+1, columnInd, sum);
+      followPath(rowInd+1, columnInd+1, sum);
+    } else {
+      pathSums.push(sum);
+    }
+  }
+  followPath(0,0);
+  return Math.max.apply(null, pathSums);
 };
+
+console.log(pathSum(triangle));
