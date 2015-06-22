@@ -1,19 +1,10 @@
 var Range = require('./range.js');
 
-var buildSieve = function(topNumber, primes) {
+var buildSieve = function(topNumber, primes, returnObject) {
   primes = primes || [2];
 
   // Create range
-  var range = Range(primes[primes.length - 1], topNumber);
-
-  // Create range object
-  var rangeObj = {};
-  for(var i = 0; i < primes.length; i++) {
-    rangeObj[primes[i]] = 1;
-  }
-  for(var i = 0; i < range.length; i++) {
-    rangeObj[range[i]] = 1;
-  }
+  var rangeObj = Range(primes[primes.length - 1], topNumber, true);
 
   // Iterate over primes
   var multiple, i;
@@ -26,6 +17,10 @@ var buildSieve = function(topNumber, primes) {
       delete rangeObj[multiple];
       i++;
     }
+  }
+
+  if(returnObject) {
+    return rangeObj;
   }
 
   return Object.keys(rangeObj).map(function(str) {
