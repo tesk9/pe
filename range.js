@@ -1,3 +1,11 @@
+/* 
+  buildRange([start, topNumber, object?])
+  Start value defaults to 1
+  Top number has no default
+  Pass in true as last arg if wanting an object back
+*/
+
+
 var buildRange = function() {
   // determine whether we want an object or an array
   var args = [].slice.call(arguments);
