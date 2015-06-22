@@ -6,6 +6,7 @@
    Note that all integers greater than 28123 can be written as the sum of two abundant numbers. */
 
 var getFactors = require('./factorization.js');
+var buildRange = require('./range.js');
 
 var isAbundant = function(number) {
   var properDivisorSum = getFactors(number).reduce(function(a,b) {
@@ -15,15 +16,42 @@ var isAbundant = function(number) {
 };
 
 var abundantNumberLister = function(topNum) {
-  var list = {}, num = 1;
+  var list = [], num = 1;
   while(num < topNum) {
     if(isAbundant(num)) {
-      list[num] = true;
+      list.push(num);
     }
     num++;
   }
   return list;
-}
+};
 
+var sumsTwoAbundantNumbers = function(topNum) {
+  var integers = buildRange(topNum, true);
+  var abundantNumbers = abundantNumberLister(topNum);
+
+  abundantNumbers.forEach(function(number, ind) {
+    for(var i = ind; i < abundantNumbers.length; i++) {
+      var abundantSum = number + abundantNumbers[i];
+      if(abundantSum > topNum) {
+        break;
+      }
+      delete integers[abundantSum];
+    }
+  });
+
+  var totalSum = 0;
+  for(var num in integers) {
+    totalSum += +(num);
+  }
+  
+  return totalSum;
+};
+
+// console.log(sumsTwoAbundantNumbers(23) === sumsTwoAbundantNumbers(24));
+
+// console.log(isAbundant(3) === false); // true
 // console.log(isAbundant(4) === false); // true
 // console.log(isAbundant(12) === true); // true
+
+console.log(sumsTwoAbundantNumbers(28123));
