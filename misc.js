@@ -21,7 +21,7 @@ var reverseSpiralMatrix = function(n) {
       matrix[i][j] = counter++;
     }
     minRow++;
-    i++, j--;
+    j--;
 
     for(var i = minRow; i < maxRow; i++) {
       matrix[i][j] = counter++;
@@ -44,7 +44,6 @@ var reverseSpiralMatrix = function(n) {
   return matrix;
 };
 
-reverseSpiralMatrix(1);
-reverseSpiralMatrix(2);
-reverseSpiralMatrix(3);
-
+// reverseSpiralMatrix(1);
+// reverseSpiralMatrix(2);
+// reverseSpiralMatrix(3);
