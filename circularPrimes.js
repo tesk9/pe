@@ -4,12 +4,8 @@
 var primeSieve = require('./sieveOfErastothanes.js');
 
 var getCircularPrimes = function(topNumber) {
-  var primes = {};
   var circularPrimesCounter = 0;
-  var primesArr = primeSieve(topNumber);
-  primesArr.forEach(function(prime) {
-    primes[prime] = true;
-  });
+  var primes = primeSieve(topNumber, [2], true);
 
   for(var prime in primes) {
     var rotations = getRotations(prime);
