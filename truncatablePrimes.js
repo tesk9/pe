@@ -1,30 +1,53 @@
 var primeSieve = require('./sieveOfErastothanes');
 
-var truncatablePrimes = function() {
-  var truncatablePrimes = [];
-  var primeInd = 0;
-  var guess = 100000;
+var getPrimes = function(guess) {
+  var guess = guess || 100000;
   var primes = primeSieve(guess);
-
   var primeLookup = {};
+
   primes.forEach(function(prime) {
     primeLookup[prime] = 1;
   });
 
-  while(truncatablePrimes.length < 11) {
-    if(primeInd === primes.length) {
+  return {
+    isPrime: function(number) {
+      if(number > primes[primes.length - 1]) {
+        this.extendPrimes();
+        return this.isPrime(number);
+      }
+      return !!primeLookup[number];
+    },
+    ithPrime: function(i) {
+      return primes[i];
+    },
+    extendPrimes: function() {
       guess *= 2;
       var newPrimes = primeSieve(guess, primes);
-      for(var i = primeInd; i < newPrimes.length; i++) {
+      for(var i = 0; i < newPrimes.length; i++) {
         primeLookup[newPrimes[i]] = 1;
       }
       primes.pop();
       primes = primes.concat(newPrimes);
+    },
+    numberOfPrimes: function() {
+      return primes.length;
     }
-    var prime = primes[primeInd];
+  }
+};
+
+var truncatablePrimes = function() {
+  var primesAPI = getPrimes();
+  var truncatablePrimes = [];
+  var primeInd = 0;
+
+  while(truncatablePrimes.length < 11) {
+    if(primeInd === primesAPI.numberOfPrimes()) {
+      primesAPI.extendPrimes();
+    }
+    var prime = primesAPI.ithPrime(primeInd);
     var truncations = truncate(prime);
     if(truncations.every(function(combo) {
-      return primeLookup[combo];
+      return primesAPI.isPrime(combo);
     })) {
       prime > 9 ? truncatablePrimes.push(prime) : "";
     }

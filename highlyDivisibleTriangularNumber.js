@@ -35,4 +35,4 @@ var triangleNumberWithOverNDivisors = function(n) {
   }
 };
   
-console.log(triangleNumberWithOverNDivisors(5)); // 28
+console.log(triangleNumberWithOverNDivisors(500)); // 28

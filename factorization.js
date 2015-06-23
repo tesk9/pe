@@ -39,11 +39,6 @@ var getFactors = (function() {
       var primes = getPrimes(number);
       var factors = {}, quotient;
 
-      // add prime factors to factors list
-      primes.forEach(function(prime) {
-        factors[prime] = 1;
-      });
-
       // use each prime to find remaining factors
       primes.forEach(function(prime) {
         quotient = number / prime;
