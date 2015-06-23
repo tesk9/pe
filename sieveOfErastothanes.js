@@ -6,6 +6,18 @@ var buildSieve = function(topNumber, primes, returnObject) {
   // Create range
   var rangeObj = Range(primes[primes.length - 1], topNumber, true);
 
+  // Iterate over any passed-in prime array
+  primes.forEach(function(prime) {
+    var i = 2;
+    var multiple = prime;
+
+    while(multiple <= topNumber) {
+      multiple = prime * i;
+      delete rangeObj[multiple];
+      i++;
+    }
+  });
+
   // Iterate over primes
   var multiple, i;
   for(var prime in rangeObj) {
