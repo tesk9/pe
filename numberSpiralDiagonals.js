@@ -16,23 +16,21 @@ in a 1001 by 1001 spiral formed in the same way?
 */
 
 var numberSpiralDiagonals = function(n) {
+  var nums = [1];
   var step = 2;
-  var nums = [];
+  var times = 0;
   var current = 1;
-  var times = 1;
-  while(step <= n) {
-    nums.push(current);
 
-    if(times < 5) {
-      times++;
-    } else {
-      step += step;
-      times = 2;
-    }
-
+  while(step < n) {
+    times++;
     current += step;
+    if(times === 4) {
+      step += 2;
+      times = 0;
+    }
+    nums.push(current)
   }
-  return nums.reduce(function(a, b) { return a + b; });
+  return nums;
 };
 
-console.log(numberSpiralDiagonals(5));
+console.log(numberSpiralDiagonals(1001).reduce(function(a,b) {return a + b;}));
