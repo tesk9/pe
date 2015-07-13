@@ -17,7 +17,12 @@ var isPandigital = function(num) {
   numArr.forEach(function(digit) {
     store[digit] = 1;
   });
-  return Object.keys(store).length === numArr.length;
+  for(var i = 1; i <= numArr.length; i++) {
+    if(!store[i]) {
+      return false;
+    }
+  }
+  return true;
 };
 
 console.log(isPandigital(15234) === true);
