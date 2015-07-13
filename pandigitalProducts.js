@@ -9,3 +9,18 @@ containing multiplicand, multiplier, and product is 1 through 9 pandigital.
 Find the sum of all products whose multiplicand/multiplier/product identity 
 can be written as a 1 through 9 pandigital.
 */
+
+
+var isPandigital = function(num) {
+  var store = {};
+  var numArr = ("" + num).split("");
+  numArr.forEach(function(digit) {
+    store[digit] = 1;
+  });
+  return Object.keys(store).length === numArr.length;
+};
+
+console.log(isPandigital(15234) === true);
+console.log(isPandigital(15534) === false);
+console.log(isPandigital(1) === true)
+
