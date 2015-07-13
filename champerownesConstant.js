@@ -33,4 +33,4 @@ var computeChampernowneDigitProduct = function(arrOfDigits) {
   }, 1);
 };
 
-console.log(computeChampernowneDigitProduct([1,2,3]), 1 * 2 * 3);
+console.log(computeChampernowneDigitProduct([1,10,100,1000,10000,100000,1000000]));
