@@ -15,19 +15,7 @@
   as the concatenated product of an integer with (1,2, ... , n) where n > 1?
 */
 
-var isPandigital = function(number) {
-  var digitStorer = {};
-  var numberStr = "" + number;
-  for(var i = 0; i < numberStr.length; i++) {
-    digitStorer[numberStr[i]] = true;
-  }
-  for(var i = 1; i <= numberStr.length; i++) {
-    if(!digitStorer[i]) {
-      return false;
-    }
-  }
-  return true;
-};
+var isPandigital = require('./pandigital');
 
 var findPandigitalMultiples = function() {
   var integer = 987654322, integerStr;

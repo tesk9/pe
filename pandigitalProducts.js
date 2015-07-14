@@ -10,20 +10,7 @@ Find the sum of all products whose multiplicand/multiplier/product identity
 can be written as a 1 through 9 pandigital.
 */
 
-
-var isPandigital = function(num) {
-  var store = {};
-  var numArr = ("" + num).split("");
-  numArr.forEach(function(digit) {
-    store[digit] = 1;
-  });
-  for(var i = 1; i <= numArr.length; i++) {
-    if(!store[i]) {
-      return false;
-    }
-  }
-  return true;
-};
+var isPandigital = require('./pandigital');
 
 var findPandigitalProducts = function() {
   var products = {};
