@@ -19,10 +19,6 @@ var isPandigital = function(number) {
   var digitStorer = {};
   var numberStr = "" + number;
   for(var i = 0; i < numberStr.length; i++) {
-    // Early exit if a digit occurs twice
-    if(digitStorer[numberStr[i]]) {
-      return false;
-    }
     digitStorer[numberStr[i]] = true;
   }
   for(var i = 1; i <= numberStr.length; i++) {
@@ -33,3 +29,47 @@ var isPandigital = function(number) {
   return true;
 };
 
+var findPandigitalMultiples = function() {
+  var integer = 987654322, integerStr;
+  while(integer) {
+    if(isPandigital(integer)) {
+
+      // Check to see if meets base conditions
+      integerStr = "" + integer;
+      var baseNumberNumDigits = 1;
+      var baseNumber, remainingNumber, nextNumber;
+
+      // Check for multiple possible base numbers
+      while(baseNumberNumDigits < integerStr.length) {
+        baseNumber = +(integerStr.slice(0, baseNumberNumDigits));
+        remainingNumber = integerStr.slice(baseNumberNumDigits);
+
+        // Check for (1,2,..n) where n >= 2
+        var n = 2, product, numProductDigits;
+        while(n <= 9) {
+          product = n * baseNumber;
+          numProductDigits = ("" + product).length;
+          nextNumber = remainingNumber.slice(0, numProductDigits);
+          if(nextNumber != product) {
+            break;
+          } else {
+            remainingNumber = remainingNumber.slice(numProductDigits);
+
+            /* If we're out of number, we have found it! */
+            if(!remainingNumber.length) {
+              return integer;
+            }
+
+          }
+          n++;
+        }
+
+        baseNumberNumDigits++;
+      }
+
+    }
+    integer--;
+  }
+};
+
+console.log(findPandigitalMultiples());
