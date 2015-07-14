@@ -19,7 +19,6 @@ var rightAngleTriangles = function(p) {
   while(b < p / 2) {
     while(a < b) {
       c = Math.sqrt(a*a + b*b);
-      console.log(a,b)
       if(isSolution(a, b)) {
         solutions.push([a, b, c]);
       }
@@ -42,6 +41,18 @@ function combinedEquations (p) {
   }
 };
 
-// console.log(rightAngleTriangles(3+4+5));
-console.log(rightAngleTriangles(120));
+var getMaxSolutions = function(topNum) {
+  var maxSols = 0, currentSols;
+  var pWithMaxSols;
+  for(var p = 0; p <= topNum; p++) {
+    currentSols = rightAngleTriangles(p).length;
+    if(currentSols > maxSols) {
+      maxSols = currentSols;
+      pWithMaxSols = p;
+    }
+  }
+  return pWithMaxSols;
+};
+
+console.log(getMaxSolutions(1000));
 
