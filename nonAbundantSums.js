@@ -26,9 +26,31 @@ var abundantNumberLister = function(topNum) {
   return list;
 };
 
+// var sumsTwoAbundantNumbers = function(topNum) {
+//   var integers = buildRange(topNum, true);
+//   var abundantNumbers = abundantNumberLister(topNum);
+//   abundantNumbers.forEach(function(number, ind) {
+//     for(var i = 0; i < abundantNumbers.length; i++) {
+//       var abundantSum = number + abundantNumbers[i];
+//       if(abundantSum > topNum) {
+//         break;
+//       }
+//       delete integers[abundantSum];
+//     }
+//   });
+//
+//   var totalSum = 0;
+//   for(var num in integers) {
+//     totalSum += +(num);
+//   }
+//
+//   return totalSum;
+// };
+
 var sumsTwoAbundantNumbers = function(topNum) {
-  var integers = buildRange(topNum, true);
+  var integers = buildRange(topNum);
   var abundantNumbers = abundantNumberLister(topNum);
+  var sums = {};
 
   abundantNumbers.forEach(function(number, ind) {
     for(var i = ind; i < abundantNumbers.length; i++) {
@@ -36,22 +58,35 @@ var sumsTwoAbundantNumbers = function(topNum) {
       if(abundantSum > topNum) {
         break;
       }
-      delete integers[abundantSum];
+      sums[abundantSum] = true;
     }
   });
 
+  var sumArr = [];
   var totalSum = 0;
-  for(var num in integers) {
-    totalSum += +(num);
-  }
-  
-  return totalSum;
-};
+  integers.forEach(function(val) {
+    if(!sums[val]) {
+      sumArr.push(val);
+      totalSum += val;
+    }
+  });
 
-// console.log(sumsTwoAbundantNumbers(23) === sumsTwoAbundantNumbers(24));
+  // return totalSum;
+  return sumArr;
+};
 
 // console.log(isAbundant(3) === false); // true
 // console.log(isAbundant(4) === false); // true
 // console.log(isAbundant(12) === true); // true
 
-console.log(sumsTwoAbundantNumbers(28123));
+// console.log(sumsTwoAbundantNumbers(28123), sumsTwoAbundantNumbers(30000));
+
+// var test = 0, topNum = 25;
+// for(var i = 0; i < topNum; i++) {
+//   test += i;
+// }
+// console.log(sumsTwoAbundantNumbers(topNum), test);
+
+sumsTwoAbundantNumbers(28123).forEach(function(val) {
+  console.log(val);
+});
