@@ -18,7 +18,7 @@ var nthTriangleNumber = require('./triangleNumber');
 
 var letterDictionary = {};
 'ABCDEFGHIJKLMNOPQRSTUVWXY'.split("").forEach(function(letter, ind) {
-  letterDictionary[letter] = ind;
+  letterDictionary[letter] = ind + 1;
 });
 
 var triangleNumberLookup = (function() {
@@ -36,22 +36,30 @@ var triangleNumberLookup = (function() {
 
 })();
 
-fs.readFile('./codedTriangleNumbers.txt', function(err, data) {
+var findWordSum = function(word) {
+  var wordSum = 0;
+  word.split("").forEach(function(letter) {
+    wordSum += letterDictionary[letter] ? letterDictionary[letter] : 0;
+  });
+  return wordSum;
+};
+
+var countTriangleWordsFromWordList = function(wordList) {
   var triangleWordCount = 0;
 
-  var words = data.toString().split(',');
-  words.forEach(function(word) {
-
-    var wordSum = 0;
-    word.split("").forEach(function(letter) {
-      wordSum += letterDictionary[letter] ? letterDictionary[letter] : 0;
-    });
-
+  wordList.forEach(function(word) {
+    var wordSum = findWordSum(word);
     if(triangleNumberLookup(wordSum)) {
       triangleWordCount++;
     }
-
   });
 
-  console.log(triangleWordCount);
+  return triangleWordCount;
+};
+
+
+fs.readFile('./codedTriangleNumbers.txt', function(err, data) {
+  var words = data.toString().split(',');
+  console.log(countTriangleWordsFromWordList(words));
 });
+
