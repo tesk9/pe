@@ -10,3 +10,8 @@
 
   What is the value of D?
 */
+
+var nthPentagonNumber = function(n) {
+  return n * (3 * n - 1) / 2;
+};
+
