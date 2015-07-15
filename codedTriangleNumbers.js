@@ -9,19 +9,21 @@
   For example, the word value for SKY is 19 + 11 + 25 = 55 = t10. 
   If the word value is a triangle number then we shall call the word a 
   triangle word.
+
+  How many of the words in codedTriangleNumbers.txt are triangle numbers?
 */
 
 var fs = require('fs');
 var nthTriangleNumber = require('./triangleNumber');
 
 var letterDictionary = {};
-'abcdefghijklmnopqrstuvwxyz'.split("").forEach(function(letter, ind) {
+'ABCDEFGHIJKLMNOPQRSTUVWXY'.split("").forEach(function(letter, ind) {
   letterDictionary[letter] = nthTriangleNumber(ind + 1);
 });
 
 var triangleNumberLookup = (function() {
   var triangleNumbers = {};
-  var largestTriangleNumber = 1;
+  var largestTriangleNumber = 0;
   var largestN = 0;
 
   return function(number) {
@@ -34,7 +36,23 @@ var triangleNumberLookup = (function() {
 
 })();
 
-
 fs.readFile('./codedTriangleNumbers.txt', function(err, data) {
+  var triangleWordCount = 0;
 
+  var words = data.toString().split(',');
+  words.forEach(function(word) {
+
+    var wordSum = 0;
+    word.split("").forEach(function(letter) {
+      wordSum += letterDictionary[letter] ? letterDictionary[letter] : 0;
+    });
+
+    if(triangleNumberLookup(wordSum)) {
+      console.log(word, wordSum)
+      triangleWordCount++;
+    }
+    console.log(triangleWordCount)
+  });
+
+  console.log(triangleWordCount);
 });
