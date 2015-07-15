@@ -18,7 +18,7 @@ var nthTriangleNumber = require('./triangleNumber');
 
 var letterDictionary = {};
 'ABCDEFGHIJKLMNOPQRSTUVWXY'.split("").forEach(function(letter, ind) {
-  letterDictionary[letter] = nthTriangleNumber(ind + 1);
+  letterDictionary[letter] = ind;
 });
 
 var triangleNumberLookup = (function() {
@@ -48,10 +48,9 @@ fs.readFile('./codedTriangleNumbers.txt', function(err, data) {
     });
 
     if(triangleNumberLookup(wordSum)) {
-      console.log(word, wordSum)
       triangleWordCount++;
     }
-    console.log(triangleWordCount)
+
   });
 
   console.log(triangleWordCount);
