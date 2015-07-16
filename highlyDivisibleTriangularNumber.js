@@ -2,7 +2,7 @@
 // 1, 3, 6, 10, 15, 21, 28, 36, 45, 55...
 var getFactors = require('./factorization.js');
 
-var nthTriangleNumber = require('./triangleNumber');
+var nthTriangleNumber = require('./triangleNumber').nthTriangleNumber;
 
 var triangleNumberWithOverNDivisors = function(n) {
   var i = 1, ithTriangle, factors;
