@@ -28,3 +28,28 @@ var pentagonalLookup = (function() {
     return !!store[number];
   };
 })();
+
+var sumsAndDifferencesPentagonal = function(Pj, Pk) {
+  return pentagonalLookup(Pj + Pk) && pentagonalLookup(Math.abs(Pk - Pj));
+};
+
+var findD = function() {
+  var sums = {};
+  var pastPentagonals = [];
+  var currentPentagonal;
+
+  for(var j = 1; ; j++) {
+    pastPentagonals.push(currentPentagonal);
+    currentPentagonal = nthPentagonNumber(j);
+
+    for(var k = 0; k < pastPentagonals.length; k++) {
+      if(sumsAndDifferencesPentagonal(currentPentagonal, pastPentagonals[k])) {
+        return Math.abs(currentPentagonal - pastPentagonals[k]);
+      }
+    }
+
+  }
+};
+
+console.log(findD());
+
