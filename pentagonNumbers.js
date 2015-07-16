@@ -11,23 +11,8 @@
   What is the value of D?
 */
 
-var nthPentagonNumber = function(n) {
-  return n * (3 * n - 1) / 2;
-};
-
-var pentagonalLookup = (function() {
-  var largestPentagonal = 0;
-  var largestN = 0;
-  var store = {};
-
-  return function(number) {
-    while(number > largestPentagonal) {
-      largestPentagonal = nthPentagonNumber(++largestN);
-      store[largestPentagonal] = 1;
-    }
-    return !!store[number];
-  };
-})();
+var nthPentagonNumber = require('./pentagonNumber').nthPentagonNumber;
+var pentagonalLookup = require('./pentagonNumber').pentagonalLookup;
 
 var sumsAndDifferencesPentagonal = function(Pj, Pk) {
   return pentagonalLookup(Pj + Pk) && pentagonalLookup(Math.abs(Pk - Pj));
