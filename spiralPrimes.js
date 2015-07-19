@@ -17,4 +17,21 @@
 */
 
 var spiralDiagonals = require('./numberSpiralDiagonals');
+var primes = require('./sieveOfErastothanes');
 
+var findPrimeRatio = function(n) {
+  var diagonals = spiralDiagonals(n);
+  var primeLookup = primes(diagonals[diagonals.length - 1], null, true);
+
+  var numPrimes = 0;
+
+  diagonals.forEach(function(diag) {
+    if(primeLookup[diag]) {
+      numPrimes++;
+    }
+  });
+
+  return numPrimes / diagonals.length;
+};
+
+console.log(findPrimeRatio(7))
