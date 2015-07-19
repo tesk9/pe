@@ -33,4 +33,6 @@ var numberSpiralDiagonals = function(n) {
   return nums;
 };
 
-console.log(numberSpiralDiagonals(1001).reduce(function(a,b) {return a + b;}));
+// console.log(numberSpiralDiagonals(1001).reduce(function(a,b) {return a + b;}));
+
+module.exports = numberSpiralDiagonals;
