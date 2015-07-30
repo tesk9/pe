@@ -18,6 +18,30 @@
 */
 
 var isPandigital = require('./pandigital');
+var range = require('./range');
+var sum = require('./helpers').sum;
+
+
+var getPandigitals = function(n) {
+  var digits = range(0, n);
+  var pandigitals = [];
+
+  (function recurse (arr, memo) {
+    var current, memo = memo || [];
+
+    for(var i = 0; i < arr.length; i++) {
+      current = arr.splice(i, 1);
+      if(arr.length === 0) {
+        pandigitals.push(memo.concat(current).join(""));
+      }
+      recurse(arr.slice(), memo.concat(current));
+      arr.splice(i, 0, current[0]);
+    }
+
+  })(digits);
+
+  return pandigitals;
+};
 
 var isSubstringDivisable = function(number) {
   var divisors = [2,3,5,7,11,13,17];
@@ -32,4 +56,15 @@ var isSubstringDivisable = function(number) {
   return true;
 };
 
-console.log(isSubstringDivisable(1406357289));
+var getDivisablePandigitals = function() {
+  var appropriatePangidigitals = [];
+  var pandigitals = getPandigitals(9);
+  pandigitals.forEach(function(pandigital) {
+    if(isSubstringDivisable(pandigital)) {
+      appropriatePangidigitals.push(pandigital);
+    }
+  });
+  return appropriatePangidigitals;
+};
+
+console.log(sum(getDivisablePandigitals()));
